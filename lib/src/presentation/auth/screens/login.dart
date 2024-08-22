@@ -3,7 +3,7 @@ import 'package:chat_app/src/common/widgets/custom_button.dart';
 import 'package:chat_app/src/core/configs/assets/images.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:toastification/toastification.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -32,7 +32,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Image.asset(AppImages.logo),
+                      Container(
+                          margin: const EdgeInsets.only(right: 8),
+                          child: Image.asset(AppImages.logo)),
                       const Text(
                         'Mimi',
                         style: TextStyle(
@@ -103,14 +105,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     if (_phoneNumberController.text.length != 10 ||
                         !RegExp(r'^(03|05|07|08|09)')
                             .hasMatch(_phoneNumberController.text)) {
-                      Fluttertoast.showToast(
-                          msg: "Please enter a valid phone number",
-                          toastLength: Toast.LENGTH_SHORT,
-                          gravity: ToastGravity.CENTER,
-                          timeInSecForIosWeb: 1,
-                          backgroundColor: Colors.red,
-                          textColor: Colors.white,
-                          fontSize: 16.0);
+                      toastification.show(
+                        type: ToastificationType.error,
+                        context:
+                            context, // optional if you use ToastificationWrapper
+                        title: const Text('Please enter a valid phone number'),
+                        autoCloseDuration: const Duration(seconds: 5),
+                      );
                     } else {
                       Navigator.pushNamed(context, RouterConstants.otp,
                           arguments: _phoneNumberController.text);

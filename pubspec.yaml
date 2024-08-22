@@ -44,7 +44,7 @@ dependencies:
   shared_preferences: ^2.2.3
   cached_network_image: ^3.3.1
   http: ^1.2.1
-  fluttertoast: ^8.2.8
+  toastification: ^2.1.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

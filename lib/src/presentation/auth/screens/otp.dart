@@ -4,6 +4,7 @@ import 'package:chat_app/src/common/constants/router.dart';
 import 'package:chat_app/src/common/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:toastification/toastification.dart';
 
 class OtpScreen extends StatefulWidget {
   final String phoneNumber;
@@ -63,7 +64,20 @@ class _OtpScreenState extends State<OtpScreen> {
     }
   }
 
-  void _onSubmit() {}
+  void _onSubmit() {
+    if (_pin1.text.isNotEmpty &&
+        _pin2.text.isNotEmpty &&
+        _pin3.text.isNotEmpty &&
+        _pin4.text.isNotEmpty) {
+    } else {
+      toastification.show(
+        type: ToastificationType.error,
+        context: context, // optional if you use ToastificationWrapper
+        title: const Text('Please enter all OTP'),
+        autoCloseDuration: const Duration(seconds: 5),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -293,7 +307,7 @@ class _OtpScreenState extends State<OtpScreen> {
               margin: const EdgeInsets.only(bottom: 16),
               child: CustomButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, RouterConstants.otp);
+                  _onSubmit();
                 },
                 title: "Verify",
                 backgroundColor: const Color(0xFF6468F6),
