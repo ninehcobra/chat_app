@@ -3,9 +3,17 @@ import 'package:chat_app/src/common/widgets/custom_button.dart';
 import 'package:chat_app/src/core/configs/assets/images.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  TextEditingController _phoneNumberController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +43,7 @@ class LoginScreen extends StatelessWidget {
                   Container(
                     margin: const EdgeInsets.only(top: 16),
                     child: const Text(
-                      'Hi! welcome to Tolki',
+                      'Hi! welcome to Mimi',
                       style:
                           TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
@@ -66,6 +74,8 @@ class LoginScreen extends StatelessWidget {
                         ),
                         Expanded(
                           child: TextField(
+                            controller: _phoneNumberController,
+                            keyboardType: TextInputType.phone,
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: const Color(0xFFF1F2F4),
@@ -90,7 +100,21 @@ class LoginScreen extends StatelessWidget {
                 margin: const EdgeInsets.only(bottom: 16),
                 child: CustomButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, RouterConstants.otp);
+                    if (_phoneNumberController.text.length != 10 ||
+                        !RegExp(r'^(03|05|07|08|09)')
+                            .hasMatch(_phoneNumberController.text)) {
+                      Fluttertoast.showToast(
+                          msg: "Please enter a valid phone number",
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.CENTER,
+                          timeInSecForIosWeb: 1,
+                          backgroundColor: Colors.red,
+                          textColor: Colors.white,
+                          fontSize: 16.0);
+                    } else {
+                      Navigator.pushNamed(context, RouterConstants.otp,
+                          arguments: _phoneNumberController.text);
+                    }
                   },
                   title: "Next",
                   backgroundColor: const Color(0xFF6468F6),

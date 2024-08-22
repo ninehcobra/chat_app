@@ -13,7 +13,11 @@ class AppRouter {
         return MaterialPageRoute(
             builder: (context) => const OnBoardingScreen());
       case RouterConstants.otp:
-        return MaterialPageRoute(builder: (context) => const OtpScreen());
+        final phoneNumber = settings.arguments as String?;
+        return MaterialPageRoute(
+            builder: (context) => OtpScreen(
+                  phoneNumber: phoneNumber ?? '',
+                ));
       default:
         return MaterialPageRoute(
             builder: (context) => const OnBoardingScreen());

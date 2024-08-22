@@ -50,7 +50,7 @@ class _CustomButtonState extends State<CustomButton> {
               }
             },
             child: Container(
-              padding: const EdgeInsets.all(12),
+              padding: const EdgeInsets.all(18),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
