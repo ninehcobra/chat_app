@@ -1,3 +1,4 @@
+import 'package:chat_app/src/common/constants/router.dart';
 import 'package:chat_app/src/common/widgets/custom_button.dart';
 import 'package:chat_app/src/core/configs/assets/images.dart';
 import 'package:flutter/material.dart';
@@ -56,9 +57,12 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     ),
                     Container(
                       margin: const EdgeInsets.only(bottom: 16, top: 8),
-                      child: const CustomButton(
+                      child: CustomButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, RouterConstants.login);
+                        },
                         title: "Get Started",
-                        backgroundColor: Color(0xFF6468F6),
+                        backgroundColor: const Color(0xFF6468F6),
                         textColor: Colors.white,
                       ),
                     )

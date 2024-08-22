@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       title: "Chat App",
       debugShowCheckedModeBanner: false,
       onGenerateRoute: AppRouter.generateRouter,
-      initialRoute: RouterConstants.login,
+      initialRoute: RouterConstants.onboarding,
     );
   }
 }
