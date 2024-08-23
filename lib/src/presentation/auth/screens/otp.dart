@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:chat_app/src/common/constants/router.dart';
 import 'package:chat_app/src/common/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,6 +22,7 @@ class _OtpScreenState extends State<OtpScreen> {
   late final _pin3 = TextEditingController();
   late final _pin4 = TextEditingController();
 
+  // ignore: unused_field
   Timer? _timer;
   int _secondsRemaining = 120; // 2 minutes
 
