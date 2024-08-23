@@ -1,4 +1,5 @@
 class RouterConstants {
+  static const String root = '/';
   static const String login = '/login';
   static const String onboarding = '/onboarding';
   static const String otp = '/otp';
@@ -6,4 +7,5 @@ class RouterConstants {
   static const String detailChat = '/detail_chat';
   static const String profile = '/profile';
   static const String updateProfile = '/update_profile';
+  static const String search = '/search';
 }

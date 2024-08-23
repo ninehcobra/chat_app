@@ -1,6 +1,7 @@
 import 'package:chat_app/src/common/constants/router.dart';
 import 'package:chat_app/src/common/widgets/custom_button.dart';
 import 'package:chat_app/src/core/configs/assets/images.dart';
+import 'package:chat_app/src/core/util/appwrite.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:toastification/toastification.dart';
@@ -70,8 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             borderRadius: BorderRadius.circular(18),
                           ),
                           child: const CountryCodePicker(
-                            initialSelection: "vn",
-                            enabled: false,
+                            initialSelection: "us",
                           ),
                         ),
                         Expanded(
@@ -102,9 +102,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 margin: const EdgeInsets.only(bottom: 16),
                 child: CustomButton(
                   onPressed: () {
-                    if (_phoneNumberController.text.length != 10 ||
-                        !RegExp(r'^(03|05|07|08|09)')
-                            .hasMatch(_phoneNumberController.text)) {
+                    if (_phoneNumberController.text.length != 10
+                        // ||
+                        //     !RegExp(r'^(03|05|07|08|09)')
+                        //         .hasMatch(_phoneNumberController.text)
+                        ) {
                       toastification.show(
                         type: ToastificationType.error,
                         context:
@@ -113,8 +115,25 @@ class _LoginScreenState extends State<LoginScreen> {
                         autoCloseDuration: const Duration(seconds: 5),
                       );
                     } else {
-                      Navigator.pushNamed(context, RouterConstants.otp,
-                          arguments: _phoneNumberController.text);
+                      createPhoneSession(
+                              phone: "+1${_phoneNumberController.text}")
+                          .then((value) {
+                        if (value != "login_error") {
+                          Navigator.pushNamed(context, RouterConstants.otp,
+                              arguments: {
+                                'phoneNumber': _phoneNumberController.text,
+                                'userId': value
+                              });
+                        } else {
+                          toastification.show(
+                            type: ToastificationType.error,
+                            context:
+                                context, // optional if you use ToastificationWrapper
+                            title: const Text('Login fail'),
+                            autoCloseDuration: const Duration(seconds: 5),
+                          );
+                        }
+                      });
                     }
                   },
                   title: "Next",

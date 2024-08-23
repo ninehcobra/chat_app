@@ -1,13 +1,16 @@
 import 'dart:async';
 
+import 'package:chat_app/src/common/constants/router.dart';
 import 'package:chat_app/src/common/widgets/custom_button.dart';
+import 'package:chat_app/src/core/util/appwrite.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:toastification/toastification.dart';
 
 class OtpScreen extends StatefulWidget {
   final String phoneNumber;
-  const OtpScreen({super.key, required this.phoneNumber});
+  final String userId;
+  const OtpScreen({super.key, required this.phoneNumber, required this.userId});
 
   @override
   State<OtpScreen> createState() => _OtpScreenState();
@@ -69,6 +72,22 @@ class _OtpScreenState extends State<OtpScreen> {
         _pin2.text.isNotEmpty &&
         _pin3.text.isNotEmpty &&
         _pin4.text.isNotEmpty) {
+      loginWithOtp(
+              otp: (_pin1.text + _pin2.text + _pin3.text + _pin4.text),
+              userId: widget.userId)
+          .then((value) {
+        if (value) {
+          Navigator.pushNamedAndRemoveUntil(
+              context, RouterConstants.chat, (route) => false);
+        } else {
+          toastification.show(
+            type: ToastificationType.error,
+            context: context, // optional if you use ToastificationWrapper
+            title: const Text('Invalid OTP'),
+            autoCloseDuration: const Duration(seconds: 5),
+          );
+        }
+      });
     } else {
       toastification.show(
         type: ToastificationType.error,

@@ -94,6 +94,12 @@ class _ChatScreenState extends State<ChatScreen> {
           ),
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, "/search");
+        },
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }
