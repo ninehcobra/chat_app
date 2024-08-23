@@ -11,6 +11,8 @@ class DetailChatScreen extends StatefulWidget {
 }
 
 class _DetailChatScreenState extends State<DetailChatScreen> {
+  final TextEditingController _messageController = TextEditingController();
+
   List messages = [
     MessageModel(
         message: "hi keo",
@@ -24,7 +26,7 @@ class _DetailChatScreenState extends State<DetailChatScreen> {
         sender: "202",
         receiver: "201",
         messageId: "12312311",
-        timestamp: DateTime(2024, 22, 8),
+        timestamp: DateTime(2023, 22, 8),
         isSeenByReceiver: false),
     MessageModel(
         message: "hi keo",
@@ -32,7 +34,15 @@ class _DetailChatScreenState extends State<DetailChatScreen> {
         receiver: "202",
         messageId: "12312311",
         timestamp: DateTime(2000),
-        isSeenByReceiver: false)
+        isSeenByReceiver: false),
+    MessageModel(
+        message: "hi keo",
+        sender: "201",
+        receiver: "202",
+        messageId: "12312311",
+        timestamp: DateTime(2000),
+        isSeenByReceiver: false,
+        isImage: true),
   ];
 
   @override
@@ -66,12 +76,42 @@ class _DetailChatScreenState extends State<DetailChatScreen> {
           ],
         ),
       ),
-      body: ListView.builder(
-          itemCount: messages.length,
-          itemBuilder: (context, index) {
-            return ChatMessage(
-                msg: messages[index], currentUser: "202", isImage: false);
-          }),
+      body: Column(
+        children: [
+          Expanded(
+            child: Container(
+              margin: const EdgeInsets.symmetric(vertical: 8),
+              child: ListView.builder(
+                  itemCount: messages.length,
+                  itemBuilder: (context, index) {
+                    return ChatMessage(
+                        msg: messages[index],
+                        currentUser: "201",
+                        isImage: messages[index].isImage ?? false);
+                  }),
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.all(12),
+            padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+            decoration: BoxDecoration(
+                color: Colors.grey[200],
+                borderRadius: BorderRadius.circular(20)),
+            child: Row(
+              children: [
+                Expanded(
+                    child: TextFormField(
+                  controller: _messageController,
+                  decoration: const InputDecoration(
+                      border: InputBorder.none, hintText: "Type a message..."),
+                )),
+                IconButton(onPressed: () {}, icon: const Icon(Icons.image)),
+                IconButton(onPressed: () {}, icon: const Icon(Icons.send))
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 }
