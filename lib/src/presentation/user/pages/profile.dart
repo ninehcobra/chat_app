@@ -1,4 +1,6 @@
+import 'package:chat_app/src/common/constants/router.dart';
 import 'package:chat_app/src/core/configs/assets/images.dart';
+import 'package:chat_app/src/core/util/appwrite.dart';
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -32,9 +34,14 @@ class ProfileScreen extends StatelessWidget {
             thickness: 1,
             color: Colors.grey[300],
           ),
-          const ListTile(
-            leading: Icon(Icons.logout),
-            title: Text("Log out"),
+          ListTile(
+            onTap: () {
+              logoutUser();
+              Navigator.pushNamedAndRemoveUntil(
+                  context, RouterConstants.login, (router) => false);
+            },
+            leading: const Icon(Icons.logout),
+            title: const Text("Log out"),
           ),
           Divider(
             thickness: 1,

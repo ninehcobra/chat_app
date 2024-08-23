@@ -24,10 +24,11 @@ class _OtpScreenState extends State<OtpScreen> {
   late final _pin2 = TextEditingController();
   late final _pin3 = TextEditingController();
   late final _pin4 = TextEditingController();
+  late final _pin5 = TextEditingController();
+  late final _pin6 = TextEditingController();
 
-  // ignore: unused_field
   Timer? _timer;
-  int _secondsRemaining = 120; // 2 minutes
+  int _secondsRemaining = 120;
 
   @override
   void initState() {
@@ -60,7 +61,9 @@ class _OtpScreenState extends State<OtpScreen> {
     if (_pin1.text.isNotEmpty &&
         _pin2.text.isNotEmpty &&
         _pin3.text.isNotEmpty &&
-        _pin4.text.isNotEmpty) {
+        _pin4.text.isNotEmpty &&
+        _pin5.text.isNotEmpty &&
+        _pin6.text.isNotEmpty) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         FocusScope.of(context).requestFocus(_confirmButtonFocusNode);
       });
@@ -71,9 +74,16 @@ class _OtpScreenState extends State<OtpScreen> {
     if (_pin1.text.isNotEmpty &&
         _pin2.text.isNotEmpty &&
         _pin3.text.isNotEmpty &&
-        _pin4.text.isNotEmpty) {
+        _pin4.text.isNotEmpty &&
+        _pin5.text.isNotEmpty &&
+        _pin6.text.isNotEmpty) {
       loginWithOtp(
-              otp: (_pin1.text + _pin2.text + _pin3.text + _pin4.text),
+              otp: (_pin1.text +
+                  _pin2.text +
+                  _pin3.text +
+                  _pin4.text +
+                  _pin5.text +
+                  _pin6.text),
               userId: widget.userId)
           .then((value) {
         if (value) {
@@ -82,7 +92,7 @@ class _OtpScreenState extends State<OtpScreen> {
         } else {
           toastification.show(
             type: ToastificationType.error,
-            context: context, // optional if you use ToastificationWrapper
+            context: context,
             title: const Text('Invalid OTP'),
             autoCloseDuration: const Duration(seconds: 5),
           );
@@ -91,8 +101,8 @@ class _OtpScreenState extends State<OtpScreen> {
     } else {
       toastification.show(
         type: ToastificationType.error,
-        context: context, // optional if you use ToastificationWrapper
-        title: const Text('Please enter all OTP'),
+        context: context,
+        title: const Text('Please enter all OTP digits'),
         autoCloseDuration: const Duration(seconds: 5),
       );
     }
@@ -129,205 +139,28 @@ class _OtpScreenState extends State<OtpScreen> {
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
-                const SizedBox(
-                  height: 24,
-                ),
+                const SizedBox(height: 24),
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      SizedBox(
-                        height: 84,
-                        width: 84,
-                        child: TextField(
-                          style: const TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
-                          controller: _pin1,
-                          focusNode: _pin1FocusNode,
-                          onChanged: (value) {
-                            _onSuccessTyping();
-                            if (value.length == 1) {
-                              FocusScope.of(context).nextFocus();
-                            }
-                          },
-                          decoration: InputDecoration(
-                            fillColor: const Color(0xFF6468F6),
-                            filled: true,
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(16),
-                                borderSide: BorderSide.none),
-                          ),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          inputFormatters: [
-                            LengthLimitingTextInputFormatter(1),
-                            FilteringTextInputFormatter.digitsOnly
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 84,
-                        width: 84,
-                        child: TextField(
-                          style: const TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
-                          controller: _pin2,
-                          onChanged: (value) {
-                            _onSuccessTyping();
-                            if (value.length == 1) {
-                              FocusScope.of(context).nextFocus();
-                            }
-                            if (value.isEmpty) {
-                              FocusScope.of(context).previousFocus();
-                            }
-                          },
-                          decoration: InputDecoration(
-                            fillColor: const Color(0xFF6468F6),
-                            filled: true,
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(16),
-                                borderSide: BorderSide.none),
-                          ),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          inputFormatters: [
-                            LengthLimitingTextInputFormatter(1),
-                            FilteringTextInputFormatter.digitsOnly
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 84,
-                        width: 84,
-                        child: TextField(
-                          style: const TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
-                          controller: _pin3,
-                          onChanged: (value) {
-                            _onSuccessTyping();
-                            if (value.length == 1) {
-                              FocusScope.of(context).nextFocus();
-                            }
-                            if (value.isEmpty) {
-                              FocusScope.of(context).previousFocus();
-                            }
-                          },
-                          decoration: InputDecoration(
-                            fillColor: const Color(0xFF6468F6),
-                            filled: true,
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(16),
-                                borderSide: BorderSide.none),
-                          ),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          inputFormatters: [
-                            LengthLimitingTextInputFormatter(1),
-                            FilteringTextInputFormatter.digitsOnly
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 84,
-                        width: 84,
-                        child: TextField(
-                          style: const TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
-                          controller: _pin4,
-                          onChanged: (value) {
-                            _onSuccessTyping();
-                            if (value.length == 1) {
-                              FocusScope.of(context).nextFocus();
-                            }
-                            if (value.isEmpty) {
-                              FocusScope.of(context).previousFocus();
-                            }
-                          },
-                          decoration: InputDecoration(
-                            fillColor: const Color(0xFF6468F6),
-                            filled: true,
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(16),
-                                borderSide: BorderSide.none),
-                          ),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          inputFormatters: [
-                            LengthLimitingTextInputFormatter(1),
-                            FilteringTextInputFormatter.digitsOnly
-                          ],
-                        ),
-                      ),
+                      _buildPinTextField(_pin1, _pin1FocusNode),
+                      _buildPinTextField(_pin2),
+                      _buildPinTextField(_pin3),
+                      _buildPinTextField(_pin4),
+                      _buildPinTextField(_pin5),
+                      _buildPinTextField(_pin6),
                     ],
                   ),
                 ),
-                _secondsRemaining == 0
-                    ? const Center(
-                        child: Text(
-                          "Didn't get OTP Code ?",
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w500),
-                        ),
-                      )
-                    : Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          const Text(
-                            'Resend code after ',
-                            style: TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            "${_secondsRemaining ~/ 60}:${(_secondsRemaining % 60).toString().padLeft(2, '0')}",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge
-                                ?.copyWith(color: const Color(0xFF6468F6)),
-                          )
-                        ],
-                      ),
-                Center(
-                  child: TextButton(
-                    onPressed: () {
-                      _secondsRemaining == 0
-                          ? () {
-                              setState(() {
-                                _secondsRemaining = 120;
-                              });
-                              startTimer();
-                            }
-                          : null;
-                    },
-                    child: Text(
-                      "Resend Code",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: _secondsRemaining == 0
-                            ? const Color(0xFF6468F6)
-                            : Colors.grey,
-                      ),
-                    ),
-                  ),
-                )
+                _buildResendSection(),
               ],
             ),
             Container(
               margin: const EdgeInsets.only(bottom: 16),
               child: CustomButton(
-                onPressed: () {
-                  _onSubmit();
-                },
+                onPressed: _onSubmit,
                 title: "Verify",
                 backgroundColor: const Color(0xFF6468F6),
                 textColor: Colors.white,
@@ -336,6 +169,95 @@ class _OtpScreenState extends State<OtpScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildPinTextField(TextEditingController controller,
+      [FocusNode? focusNode]) {
+    return SizedBox(
+      height: 60,
+      width: 50,
+      child: TextField(
+        style: const TextStyle(
+            fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+        controller: controller,
+        focusNode: focusNode,
+        onChanged: (value) {
+          _onSuccessTyping();
+          if (value.length == 1) {
+            FocusScope.of(context).nextFocus();
+          }
+          if (value.isEmpty) {
+            FocusScope.of(context).previousFocus();
+          }
+        },
+        decoration: InputDecoration(
+          fillColor: const Color(0xFF6468F6),
+          filled: true,
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+              borderSide: BorderSide.none),
+        ),
+        keyboardType: TextInputType.number,
+        textAlign: TextAlign.center,
+        inputFormatters: [
+          LengthLimitingTextInputFormatter(1),
+          FilteringTextInputFormatter.digitsOnly
+        ],
+      ),
+    );
+  }
+
+  Widget _buildResendSection() {
+    return Column(
+      children: [
+        _secondsRemaining == 0
+            ? const Center(
+                child: Text(
+                  "Didn't get OTP Code ?",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                ),
+              )
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Text(
+                    'Resend code after ',
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    "${_secondsRemaining ~/ 60}:${(_secondsRemaining % 60).toString().padLeft(2, '0')}",
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyLarge
+                        ?.copyWith(color: const Color(0xFF6468F6)),
+                  )
+                ],
+              ),
+        Center(
+          child: TextButton(
+            onPressed: _secondsRemaining == 0
+                ? () {
+                    setState(() {
+                      _secondsRemaining = 120;
+                    });
+                    startTimer();
+                  }
+                : null,
+            child: Text(
+              "Resend Code",
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: _secondsRemaining == 0
+                    ? const Color(0xFF6468F6)
+                    : Colors.grey,
+              ),
+            ),
+          ),
+        )
+      ],
     );
   }
 }

@@ -22,12 +22,13 @@ class AppRouter {
         return MaterialPageRoute(
             builder: (context) => const OnBoardingScreen());
       case RouterConstants.otp:
-        final phoneNumber = settings.arguments as String?;
+        final args = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
-            builder: (context) => OtpScreen(
-                  phoneNumber: phoneNumber ?? '',
-                  userId: '',
-                ));
+          builder: (_) => OtpScreen(
+            phoneNumber: args['phoneNumber'],
+            userId: args['userId'],
+          ),
+        );
       case RouterConstants.chat:
         return MaterialPageRoute(builder: (context) => const ChatScreen());
       case RouterConstants.detailChat:

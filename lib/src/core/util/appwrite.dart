@@ -113,3 +113,8 @@ Future<bool> checkSessions() async {
     return false;
   }
 }
+
+// to logout the user and delete session
+Future logoutUser() async {
+  await account.deleteSession(sessionId: "current");
+}

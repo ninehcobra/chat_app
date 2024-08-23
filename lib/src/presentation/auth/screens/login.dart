@@ -16,6 +16,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _phoneNumberController = TextEditingController();
 
+  String countryCode = "+1";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,8 +71,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             color: const Color(0xFFF1F2F4),
                             borderRadius: BorderRadius.circular(18),
                           ),
-                          child: const CountryCodePicker(
+                          child: CountryCodePicker(
                             initialSelection: "us",
+                            onChanged: (value) {
+                              print(value.dialCode);
+                              countryCode = value.dialCode!;
+                            },
                           ),
                         ),
                         Expanded(
@@ -102,7 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 margin: const EdgeInsets.only(bottom: 16),
                 child: CustomButton(
                   onPressed: () {
-                    if (_phoneNumberController.text.length != 10
+                    if (false
                         // ||
                         //     !RegExp(r'^(03|05|07|08|09)')
                         //         .hasMatch(_phoneNumberController.text)
@@ -116,14 +121,16 @@ class _LoginScreenState extends State<LoginScreen> {
                       );
                     } else {
                       createPhoneSession(
-                              phone: "+1${_phoneNumberController.text}")
-                          .then((value) {
+                              phone:
+                                  "$countryCode${_phoneNumberController.text}")
+                          .then((value) async {
                         if (value != "login_error") {
-                          Navigator.pushNamed(context, RouterConstants.otp,
-                              arguments: {
-                                'phoneNumber': _phoneNumberController.text,
-                                'userId': value
-                              });
+                          print(value);
+                          await Navigator.pushNamed(
+                              context, RouterConstants.otp, arguments: {
+                            'phoneNumber': _phoneNumberController.text,
+                            'userId': value
+                          });
                         } else {
                           toastification.show(
                             type: ToastificationType.error,

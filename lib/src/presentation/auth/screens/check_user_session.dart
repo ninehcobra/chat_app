@@ -18,7 +18,7 @@ class _CheckUserSessionState extends State<CheckUserSession> {
             context, RouterConstants.chat, (route) => false);
       } else {
         Navigator.pushNamedAndRemoveUntil(
-            context, RouterConstants.login, (route) => false);
+            context, RouterConstants.onboarding, (route) => false);
       }
     });
     super.initState();

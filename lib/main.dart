@@ -1,6 +1,5 @@
 import 'package:chat_app/src/common/constants/router.dart';
 import 'package:chat_app/src/core/configs/router/router.dart';
-import 'package:chat_app/src/core/util/appwrite.dart';
 import 'package:flutter/material.dart';
 import 'package:toastification/toastification.dart';
 

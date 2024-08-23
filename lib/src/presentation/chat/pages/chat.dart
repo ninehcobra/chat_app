@@ -1,3 +1,4 @@
+import 'package:chat_app/src/common/constants/router.dart';
 import 'package:chat_app/src/core/configs/assets/images.dart';
 import 'package:flutter/material.dart';
 
@@ -20,13 +21,18 @@ class _ChatScreenState extends State<ChatScreen> {
               'Chats',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(100),
-              child: Image.asset(
-                AppImages.avatar1,
-                fit: BoxFit.cover,
-                height: 40,
-                width: 40,
+            InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, RouterConstants.profile);
+              },
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(100),
+                child: Image.asset(
+                  AppImages.avatar1,
+                  fit: BoxFit.cover,
+                  height: 40,
+                  width: 40,
+                ),
               ),
             )
           ],
