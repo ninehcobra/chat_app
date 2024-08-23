@@ -4,6 +4,8 @@ import 'package:chat_app/src/presentation/auth/screens/onboarding.dart';
 import 'package:chat_app/src/presentation/auth/screens/otp.dart';
 import 'package:chat_app/src/presentation/chat/pages/chat.dart';
 import 'package:chat_app/src/presentation/chat/pages/detail_chat.dart';
+import 'package:chat_app/src/presentation/user/pages/profile.dart';
+import 'package:chat_app/src/presentation/user/pages/update_profile.dart';
 import 'package:flutter/material.dart';
 
 class AppRouter {
@@ -25,6 +27,11 @@ class AppRouter {
       case RouterConstants.detailChat:
         return MaterialPageRoute(
             builder: (context) => const DetailChatScreen());
+      case RouterConstants.profile:
+        return MaterialPageRoute(builder: (context) => const ProfileScreen());
+      case RouterConstants.updateProfile:
+        return MaterialPageRoute(
+            builder: (context) => const UpdateProfileScreen());
       default:
         return MaterialPageRoute(
             builder: (context) => const OnBoardingScreen());

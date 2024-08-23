@@ -43,6 +43,35 @@ class _DetailChatScreenState extends State<DetailChatScreen> {
         timestamp: DateTime(2000),
         isSeenByReceiver: false,
         isImage: true),
+    MessageModel(
+        message: "hi keo",
+        sender: "201",
+        receiver: "202",
+        messageId: "12312311",
+        timestamp: DateTime(2024, 23, 8),
+        isSeenByReceiver: false),
+    MessageModel(
+        message: "hi keo",
+        sender: "202",
+        receiver: "201",
+        messageId: "12312311",
+        timestamp: DateTime(2023, 22, 8),
+        isSeenByReceiver: true),
+    MessageModel(
+        message: "hi keo",
+        sender: "201",
+        receiver: "202",
+        messageId: "12312311",
+        timestamp: DateTime(2000),
+        isSeenByReceiver: false),
+    MessageModel(
+        message: "hi keo",
+        sender: "201",
+        receiver: "202",
+        messageId: "12312311",
+        timestamp: DateTime(2000),
+        isSeenByReceiver: false,
+        isImage: true),
   ];
 
   @override
