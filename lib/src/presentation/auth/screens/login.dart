@@ -107,41 +107,25 @@ class _LoginScreenState extends State<LoginScreen> {
                 margin: const EdgeInsets.only(bottom: 16),
                 child: CustomButton(
                   onPressed: () {
-                    if (false
-                        // ||
-                        //     !RegExp(r'^(03|05|07|08|09)')
-                        //         .hasMatch(_phoneNumberController.text)
-                        ) {
-                      toastification.show(
-                        type: ToastificationType.error,
-                        context:
-                            context, // optional if you use ToastificationWrapper
-                        title: const Text('Please enter a valid phone number'),
-                        autoCloseDuration: const Duration(seconds: 5),
-                      );
-                    } else {
-                      createPhoneSession(
-                              phone:
-                                  "$countryCode${_phoneNumberController.text}")
-                          .then((value) async {
-                        if (value != "login_error") {
-                          print(value);
-                          await Navigator.pushNamed(
-                              context, RouterConstants.otp, arguments: {
-                            'phoneNumber': _phoneNumberController.text,
-                            'userId': value
-                          });
-                        } else {
-                          toastification.show(
-                            type: ToastificationType.error,
-                            context:
-                                context, // optional if you use ToastificationWrapper
-                            title: const Text('Login fail'),
-                            autoCloseDuration: const Duration(seconds: 5),
-                          );
-                        }
-                      });
-                    }
+                    createPhoneSession(
+                            phone: "$countryCode${_phoneNumberController.text}")
+                        .then((value) async {
+                      if (value != "login_error") {
+                        await Navigator.pushNamed(context, RouterConstants.otp,
+                            arguments: {
+                              'phoneNumber': _phoneNumberController.text,
+                              'userId': value
+                            });
+                      } else {
+                        toastification.show(
+                          type: ToastificationType.error,
+                          context:
+                              context, // optional if you use ToastificationWrapper
+                          title: const Text('Login fail'),
+                          autoCloseDuration: const Duration(seconds: 5),
+                        );
+                      }
+                    });
                   },
                   title: "Next",
                   backgroundColor: const Color(0xFF6468F6),

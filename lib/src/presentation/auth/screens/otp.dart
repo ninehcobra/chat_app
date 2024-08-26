@@ -27,6 +27,7 @@ class _OtpScreenState extends State<OtpScreen> {
   late final _pin5 = TextEditingController();
   late final _pin6 = TextEditingController();
 
+  // ignore: unused_field
   Timer? _timer;
   int _secondsRemaining = 120;
 
